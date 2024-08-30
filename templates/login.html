@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ - โรงพยาบาลสุขภาพดี</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="โลโก้โรงพยาบาล" class="logo">
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="login-box">
+                <h2>เข้าสู่ระบบ</h2>
+                
+                {% if message %}
+                <div class="alert" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+                {% endif %}
+                
+                <form action="{{ url_for('login') }}" method="post">
+                    <div class="form-group">
+                        <label for="InputEmail">อีเมล</label>
+                        <input type="email" name="email" id="InputEmail" placeholder="กรอกอีเมล" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputPassword">รหัสผ่าน</label>
+                        <input type="password" name="password" id="InputPassword" placeholder="กรอกรหัสผ่าน" required>
+                    </div>
+                    <button type="submit" class="btn-primary">เข้าสู่ระบบ</button>
+                </form>
+                
+                <div class="register-link">
+                    <p>ยังไม่มีบัญชี? <a href="{{ url_for('register') }}">ลงทะเบียน</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LungXpert. สงวนลิขสิทธิ์.</p>
+    </footer>
+</body>
+</html>

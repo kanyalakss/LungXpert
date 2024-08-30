@@ -1,0 +1,122 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โรงพยาบาลสุขภาพดี</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="โลโก้โรงพยาบาล" class="logo">
+            <ul>
+                <li><a href="{{ url_for('logged_in') }}">หน้าหลัก</a></li>
+                <li><a href="{{ url_for('upload.upload_file') }}">บริการ</a></li>
+                <li><a href="{{ url_for('upload.upload_file') }}">ทำนาย</a></li>
+                <li class="profile-menu">
+                    <a href="#" class="profile-toggle">โปรไฟล์ <span class="arrow-down">▼</span></a>
+                    <ul class="profile-dropdown">
+                        <li><a href="#">ข้อมูลส่วนตัว</a></li>
+                        <li><a href="#">ประวัติการรักษา</a></li>
+                        <li><a href="{{ url_for('logout') }}">ออกจากระบบ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="upload-container">
+            <h1>ระบบวิเคราะห์ภาพถ่ายรังสีทรวงอก</h1>
+            <p class="description">อัปโหลดภาพเอกซเรย์ปอดเพื่อรับการวิเคราะห์และทำนายโรคทางปอด</p>
+            
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="file-upload">
+                    <input type="file" id="fileInput" name="file" accept="image/*" required>
+                    <label for="fileInput">
+                        <i class="fas fa-cloud-upload-alt"></i> เลือกไฟล์ภาพ
+                    </label>
+                </div>
+                <button type="submit" class="submit-btn">วิเคราะห์ภาพ</button>
+            </form>
+            
+            <div id="message" class="message"></div>
+            
+            <div id="imagePreview" class="image-preview">
+                <p id="fileName" style="display: none;"></p>
+            </div>
+
+            <div id="resultContainer" class="result-container" style="display: none;">
+                <h2>ผลการวิเคราะห์</h2>
+                <p id="resultText"></p>
+                <div class="results-container">
+                    <div class="result-item">
+                        <h2>ภาพที่อัปโหลด</h2>
+                        <img id="previewImg" src="#" alt="ตัวอย่างภาพ" style="display: none;">
+                    </div>
+                    <div class="result-item">
+                        <h2>ผลลัพธ์ Grad-CAM</h2>
+                        <img id="gradcamImg" src="#" alt="Grad-CAM ผลลัพธ์" style="display: none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#fileInput').on('change', function(e) {
+                var file = e.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#previewImg').attr('src', e.target.result).show();
+                        $('#fileName').text('ชื่อไฟล์: ' + file.name).show();
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            $('#uploadForm').on('submit', function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                
+                $.ajax({
+                    url: '/upload',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('#message').html('<div class="alert alert-info">กำลังวิเคราะห์ภาพ กรุณารอสักครู่...</div>');
+                    },
+                    success: function (response) {
+                        if (response && response.result && response.gradcam_img) {
+                            $('#resultText').text(response.result);
+                            $('#previewImg').attr('src', $('#previewImg').attr('src')).show();
+                            $('#gradcamImg').attr('src', 'data:image/png;base64,' + response.gradcam_img).show();
+                            $('#resultContainer').show();
+                            $('#message').html('<div class="alert alert-success">วิเคราะห์ภาพเสร็จสิ้น</div>');
+                        } else if (response.error) {
+                            $('#message').html('<div class="alert alert-danger">เกิดข้อผิดพลาด: ' + response.error + '</div>');
+                        } else {
+                            $('#message').html('<div class="alert alert-danger">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</div>');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        $('#message').html('<div class="alert alert-danger">เกิดข้อผิดพลาด: ' + xhr.responseText + '</div>');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+    <footer>
+        <p>&copy; 2024 LungXpert. สงวนลิขสิทธิ์.</p>
+    </footer>
+</html>
+{% endblock %}

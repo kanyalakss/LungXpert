@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ลงทะเบียน - โรงพยาบาลสุขภาพดี</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="โลโก้โรงพยาบาล" class="logo">
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="register-box">
+                <h2>ลงทะเบียน</h2>
+                
+                {% if message %}
+                <div class="alert" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+                {% endif %}
+                
+                <form action="{{ url_for('register') }}" method="post">
+                    <div class="form-group">
+                        <label for="InputName">ชื่อ</label>
+                        <input type="text" name="name" id="InputName" placeholder="กรอกชื่อ" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputEmail">อีเมล</label>
+                        <input type="email" name="email" id="InputEmail" placeholder="กรอกอีเมล" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputPassword">รหัสผ่าน</label>
+                        <input type="password" name="password" id="InputPassword" placeholder="กรอกรหัสผ่าน" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputConfirmPassword">ยืนยันรหัสผ่าน</label>
+                        <input type="password" name="confirm_password" id="InputConfirmPassword" placeholder="กรอกรหัสผ่านอีกครั้ง" required>
+                    </div>
+                    <button type="submit" class="btn-primary">ลงทะเบียน</button>
+                </form>
+                
+                <div class="login-link">
+                    <p>มีบัญชีอยู่แล้ว? <a href="{{ url_for('login') }}">เข้าสู่ระบบ</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LungXpert. สงวนลิขสิทธิ์.</p>
+    </footer>
+</body>
+</html>

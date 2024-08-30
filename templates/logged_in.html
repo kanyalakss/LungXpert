@@ -1,0 +1,91 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โรงพยาบาลสุขภาพดี</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/logged_in.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="โลโก้โรงพยาบาล" class="logo">
+            <ul>
+                <li><a href="{{ url_for('logged_in') }}">หน้าหลัก</a></li>
+                <li><a href="{{ url_for('upload.upload_file') }}">บริการ</a></li>
+                <li><a href="{{ url_for('upload.upload_file') }}">ทำนาย</a></li>
+                <li class="profile-menu">
+                    <a href="#" class="profile-toggle">โปรไฟล์ <span class="arrow-down">▼</span></a>
+                    <ul class="profile-dropdown">
+                        <li><a href="#">ข้อมูลส่วนตัว</a></li>
+                        <li><a href="#">ประวัติการรักษา</a></li>
+                        <li><a href="{{ url_for('logout') }}">ออกจากระบบ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="welcome" class="hero">
+            <h1>ยินดีต้อนรับ, คุณ {{name}}</h1>
+            <p>เราดีใจที่คุณเลือกใช้บริการ LungXpert </p>
+        </section>
+
+        <section id="hospital-history">
+            <h2>Your AI Assistant for
+                Lung disease classification </h2>
+            <div class="history-content">
+                <img src="{{ url_for('static', filename='images/hospital-old.jpg') }}" class="history-image">
+                <p>ChextXpert ก่อตั้งขึ้นในปี พ.ศ. 2565 โดยมีจุดมุ่งหมายเพื่อให้บริการทางการแพทย์ที่มีคุณภาพแก่ชุมชน เราได้พัฒนาและขยายการให้บริการอย่างต่อเนื่อง จนกลายเป็นจัวช่วยอัจฉริยะชั้นนำที่มีความเชี่ยวชาญในหลากหลายด้าน</p>
+            </div>
+        </section>
+
+        <section id="quick-links">
+            <h2>Easy Work Flow</h2>
+            <div class="quick-links-grid">
+                <a href="#" class="quick-link-card">
+                    <img src="{{ url_for('static', filename='images/icon-appointment.png') }}" >
+                    <h3>Click</h3>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <img src="{{ url_for('static', filename='images/icon-results.png') }}">
+                    <h3>Upload</h3>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <img src="{{ url_for('static', filename='images/icon-pharmacy.png') }}" >
+                    <h3>Wait</h3>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <img src="{{ url_for('static', filename='images/icon-telemedicine.png') }}" >
+                    <h3>On Screen</h3>
+                </a>
+            </div>
+        </section>
+
+        <section id="news-events">
+            <h2>News and Activities</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <img src="{{ url_for('static', filename='images/news1.jpg') }}">
+                    <h3>ข่าวจำนวนผู้ป่วยโควิด-19ล่าสุด</h3>
+                    <p>จำนวนผู้ป่วยโควิด-19 ประจำเดือน มกราคม พ.ศ. 2565 มีจำนวนทั้งสิ้น...</p>
+                    <a href="#" class="read-more">อ่านเพิ่มเติม</a>
+                </div>
+                <div class="news-card">
+                    <img src="{{ url_for('static', filename='images/news2.jpg') }}"">
+                    <h3>10วิธีคัดกรองอาการเบื้องต้นที่บ่งบอกถึงโรคโควิด-19</h3>
+                    <p>ผู้ที่มีน้ำมูกหรือสารคัดหลั่งแนะนำให้สวมหน้ากากอนามัยตลอดเวลาเพื่อป้องกันการ...</p>
+                    <a href="#" class="read-more">อ่านเพิ่มเติม</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LungXpert. สงวนลิขสิทธิ์.</p>
+    </footer>
+</body>
+</html>
+{% endblock %}

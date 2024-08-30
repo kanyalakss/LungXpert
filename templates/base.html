@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <html lang="th">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>โรงพยาบาลสุขภาพดี</title>
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        </head>
+        <body>
+            <header>
+                <nav>
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="โลโก้โรงพยาบาล" class="logo">
+                    <ul>
+                        {% if 'email' in session %}
+                        <li><a href="{{ url_for('logged_in') }}">Home</a></li>
+                        <li><a href="{{ url_for('upload.upload_file') }}">services</a></li>
+                        <li><a href="{{ url_for('upload.upload_file') }}">Predict</a></li>
+                        <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                        {% else %}
+                        <li><a href="{{ url_for('login') }}">Try DEMO</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>

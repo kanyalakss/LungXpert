@@ -1,0 +1,99 @@
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="th">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>โรงพยาบาลสุขภาพดี</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="โลโก้โรงพยาบาล" class="logo">
+                <ul>
+
+                    <li><a href="{{ url_for('login') }}">Try DEMO</a></li>
+
+                </ul>
+            </nav>
+        </header>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โรงพยาบาลสุขภาพดี</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="โลโก้โรงพยาบาล" class="logo">
+            <ul>
+                <li><a href="{{ url_for('login') }}">Try DEMO</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <h1>ยินดีต้อนรับสู่ LungXpert</h1>
+            <p>เรามุ่งมั่นในการให้บริการทางการแพทย์ที่มีคุณภาพสูงสุด</p>
+            <a href="{{ url_for('upload.upload_file') }}" class="cta-button">Try DEMO</a>
+        </section>
+
+        <section id="services">
+            <h2>Our AI Assistant helps can you</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Boost</h3>
+                    <p>Healthcare Efficiency
+                        Boosted.</p>
+                </div>
+                <div class="service-card">
+                    <h3>High</h3>
+                    <p>High Performance.
+                        High Sensitivity.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Workflow</h3>
+                    <p>Workflow Has
+                        Never Been Easier.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="doctors">
+            <h2>รีวิวจากแพทย์ผู้เชี่ยวชาญ</h2>
+            <div class="doctors-grid">
+                <div class="doctor-card">
+                    <img src="{{ url_for('static', filename='images/doctor1.jpg') }}" alt="แพทย์ 1">
+                    <h3>นพ. เฮนรี่ คาวิว</h3>
+                    <p>แพทย์เฉพาะทางด้านอายุรกรรม</p>
+                </div>
+                <div class="doctor-card">
+                    <img src="{{ url_for('static', filename='images/doctor2.jpg') }}" alt="แพทย์ 2">
+                    <h3>นพ. เฮนรี่ คาวิว</h3>
+                    <p>แพทย์เฉพาะทางด้านกุมารเวชศาสตร์</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>ติดต่อสอบถามเรา</h2>
+            <form>
+                <input type="text" placeholder="ชื่อ" required>
+                <input type="email" placeholder="อีเมล" required>
+                <textarea placeholder="ข้อความ" required></textarea>
+                <button type="submit">ส่งข้อความ</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LungXpert. สงวนลิขสิทธิ์.</p>
+    </footer>
+</body>
+</html>
+{% endblock %}
