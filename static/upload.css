@@ -1,0 +1,405 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap');
+
+header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    left: 0;
+    z-index: 1000;
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+}
+
+.logo {
+    height: 60px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+nav ul li {
+    margin-left: 2rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #007bff;
+}
+
+.profile-menu {
+    position: relative;
+}
+
+.profile-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.arrow-down {
+    margin-left: 5px;
+    font-size: 0.8em;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+    border-radius: 4px;
+}
+
+.profile-menu:hover .profile-dropdown {
+    display: block;
+}
+
+.profile-dropdown li {
+    margin: 0;
+}
+
+.profile-dropdown a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.profile-dropdown a:hover {
+    background-color: #f1f1f1;
+}
+
+.hero {
+    background-image: url('../images/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+    padding: 0 1rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f3fffb;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 80px;
+}
+footer {
+    background-color: #333;
+    color: #ffffff;
+    text-align: center;
+    padding: 0.5rem;
+}
+.upload-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 50px;
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.description {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+}
+
+.file-upload {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.file-upload input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: pointer;
+    display: block;
+}
+
+.file-upload label {
+    display: block;
+    padding: 15px 20px;
+    background-color: #3498db;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.file-upload label:hover {
+    background-color: #2980b9;
+}
+
+.file-upload i {
+    margin-right: 10px;
+}
+
+.submit-btn {
+    font-family: 'Kanit', sans-serif;
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #27ae60;
+}
+
+.message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.alert-info {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #31708f;
+}
+
+.alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
+
+.alert-danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+}
+
+.image-preview {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.results-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.result-item {
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+    max-width: 100%; /* Ensure the image doesn't overflow its container */
+    position: relative; /* To handle absolute positioning of the image */
+}
+
+.result-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This will crop and zoom the image to cover the container */
+    max-height: 300px; /* Set maximum height for images */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.result-container h2 {
+    color: #16a085;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#resultText {
+    font-size: 30px;
+    position: relative;
+    color: #333;
+}
+
+
+.result-item {
+    position: relative;
+    display: inline-block;
+}
+.grad-cam-container {
+    position: relative;
+    display: inline-block;
+}
+.color-scale {
+    position: absolute;
+    right: -20px;
+    bottom: 5px;
+    height: 83%;
+    width: 10px;
+    background: linear-gradient(to bottom, 
+        #FF0000, /* แดง (ร้อนที่สุด) */
+        #FF7F00, /* ส้ม */
+        #FFFF00, /* เหลือง */
+        #00FF00, /* เขียว */
+        #0000FF, /* น้ำเงิน */
+        #8B00FF  /* ม่วง (เย็นที่สุด) */
+    );
+}
+.color-scale::before, .color-scale::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    font-size: 11px;
+    white-space: nowrap;
+    color: #9b9b9b;
+}
+.color-scale::before {
+    content: 'Focusing area';
+    top: -20px;
+
+}
+.color-scale::after {
+    content: 'Less important area';
+    bottom: -20px;
+
+}
+
+/* Add styles for the patient data form */
+#patientDataForm {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 20px;
+}
+
+#patientDataForm h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#patientDataForm .form-group {
+    margin-bottom: 15px;
+}
+
+#patientDataForm label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+#patientDataForm input[type="text"],
+#patientDataForm textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#patientDataForm textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+#patientDataForm button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#patientDataForm button:hover {
+    background-color: #27ae60;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    .upload-container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .file-upload label, .submit-btn {
+        font-size: 14px;
+    }
+
+    
+
+}
