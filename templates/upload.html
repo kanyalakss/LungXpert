@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>โรงพยาบาลสุขภาพดี</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
- 
 </head>
 <body>
     <header>
@@ -49,6 +48,7 @@
                 <img id="previewImg" src="#" alt="ตัวอย่างภาพ" style="display: none;">
             </div>
 
+            <!-- ส่วนผลการวิเคราะห์ -->
             <div id="resultContainer" class="result-container" style="display: none;">
                 <h2>ผลการวิเคราะห์</h2>
                 <p id="resultText"></p>
@@ -64,6 +64,29 @@
                         <div class="color-scale"></div>
                     </div>
                 </div>
+
+                <!-- เพิ่มปุ่มเซฟ -->
+                <button id="saveBtn" class="submit-btn">เซฟข้อมูล</button>
+            </div>
+
+            <!-- เพิ่มฟอร์มกรอกข้อมูลผู้ป่วย -->
+            <div id="patientDataForm" style="display: none;">
+                <h2>กรอกข้อมูลผู้ป่วย</h2>
+                <form id="patientForm">
+                    <div class="form-group">
+                        <label for="patientName">ชื่อผู้ป่วย:</label>
+                        <input type="text" id="patientName" name="patientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientId">รหัสผู้ป่วย:</label>
+                        <input type="text" id="patientId" name="patientId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="initialSymptoms">อาการเบื้องต้น:</label>
+                        <textarea id="initialSymptoms" name="initialSymptoms" required></textarea>
+                    </div>
+                    <button type="submit" id="submitPatientData" class="submit-btn">บันทึกข้อมูลผู้ป่วย</button>
+                </form>
             </div>
         </div>
     </div>
@@ -72,6 +95,7 @@
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
     <script>
         $(document).ready(function () {
+            // ฟังก์ชันสำหรับการแสดงตัวอย่างภาพ
             $('#fileInput').on('change', function(e) {
                 var file = e.target.files[0];
                 if (file) {
@@ -85,6 +109,7 @@
                 }
             });
 
+            // ฟังก์ชันสำหรับการวิเคราะห์ภาพ
             $('#uploadForm').on('submit', function (e) {
                 e.preventDefault();
                 var formData = new FormData(this);
@@ -104,11 +129,51 @@
                             $('#uploadedImg').attr('src', $('#previewImg').attr('src')).show();
                             $('#finalImg').attr('src', 'data:image/png;base64,' + response.final_img).show();
                             $('#resultContainer').show();
+                            $('#saveBtn').show();
                             $('#message').html('<div class="alert alert-success">วิเคราะห์ภาพเสร็จสิ้น</div>');
                         } else if (response.error) {
                             $('#message').html('<div class="alert alert-danger">เกิดข้อผิดพลาด: ' + response.error + '</div>');
                         } else {
                             $('#message').html('<div class="alert alert-danger">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</div>');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        $('#message').html('<div class="alert alert-danger">เกิดข้อผิดพลาด: ' + xhr.responseText + '</div>');
+                    }
+                });
+            });
+
+            // ฟังก์ชันสำหรับการแสดงฟอร์มข้อมูลผู้ป่วย
+            $('#saveBtn').on('click', function () {
+                $('#patientDataForm').show();
+                $('#saveBtn').hide();
+            });
+
+            // ฟังก์ชันสำหรับการเซฟข้อมูล
+            $('#patientForm').on('submit', function (e) {
+                e.preventDefault();
+                var formData = new FormData($('#uploadForm')[0]);
+                
+                // เพิ่มข้อมูลผู้ป่วยลงใน formData
+                formData.append('patientName', $('#patientName').val());
+                formData.append('patientId', $('#patientId').val());
+                formData.append('initialSymptoms', $('#initialSymptoms').val());
+
+                $.ajax({
+                    url: '/save',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('#message').html('<div class="alert alert-info">กำลังเซฟข้อมูล กรุณารอสักครู่...</div>');
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            $('#message').html('<div class="alert alert-success">เซฟข้อมูลสำเร็จ</div>');
+                            $('#patientDataForm').hide();
+                        } else {
+                            $('#message').html('<div class="alert alert-danger">เกิดข้อผิดพลาด: ' + response.error + '</div>');
                         }
                     },
                     error: function (xhr, status, error) {
