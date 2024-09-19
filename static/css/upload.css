@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&display=swap');
+
 header {
     background-color: #ffffff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -169,7 +170,7 @@ h1 {
     opacity: 0;
     outline: none;
     background: white;
-    cursor: inherit;
+    cursor: pointer;
     display: block;
 }
 
@@ -194,6 +195,7 @@ h1 {
 }
 
 .submit-btn {
+    font-family: 'Kanit', sans-serif;
     display: block;
     width: 100%;
     padding: 15px;
@@ -271,16 +273,58 @@ h1 {
 
 .result-container h2 {
     color: #16a085;
+    font-size: 20px;
     margin-bottom: 10px;
 }
 
 #resultText {
-    font-size: 18px;
-    color: #2c3e50;
+    font-size: 30px;
+    position: relative;
+    color: #333;
 }
 
 
+.result-item {
+    position: relative;
+    display: inline-block;
+}
+.grad-cam-container {
+    position: relative;
+    display: inline-block;
+}
+.color-scale {
+    position: absolute;
+    right: -20px;
+    bottom: 5px;
+    height: 83%;
+    width: 10px;
+    background: linear-gradient(to bottom, 
+        #FF0000, /* แดง (ร้อนที่สุด) */
+        #FF7F00, /* ส้ม */
+        #FFFF00, /* เหลือง */
+        #00FF00, /* เขียว */
+        #0000FF, /* น้ำเงิน */
+        #8B00FF  /* ม่วง (เย็นที่สุด) */
+    );
+}
+.color-scale::before, .color-scale::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    font-size: 11px;
+    white-space: nowrap;
+    color: #9b9b9b;
+}
+.color-scale::before {
+    content: 'Focusing area';
+    top: -20px;
 
+}
+.color-scale::after {
+    content: 'Less important area';
+    bottom: -20px;
+
+}
 
 /* Responsive design */
 @media (max-width: 600px) {
