@@ -1,4 +1,3 @@
-{% block content %}
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -6,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>โรงพยาบาลสุขภาพดี</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+ 
 </head>
 <body>
     <header>
@@ -37,7 +37,7 @@
                     <input type="file" id="fileInput" name="file" accept="image/*" required>
                     <label for="fileInput">
                         <i class="fas fa-cloud-upload-alt"></i> เลือกไฟล์ภาพ
-                    </label>
+                    </label>                    
                 </div>
                 <button type="submit" class="submit-btn">วิเคราะห์ภาพ</button>
             </form>
@@ -46,19 +46,22 @@
             
             <div id="imagePreview" class="image-preview">
                 <p id="fileName" style="display: none;"></p>
+                <img id="previewImg" src="#" alt="ตัวอย่างภาพ" style="display: none;">
             </div>
 
             <div id="resultContainer" class="result-container" style="display: none;">
                 <h2>ผลการวิเคราะห์</h2>
                 <p id="resultText"></p>
+                <div id="classProbabilities"></div>
                 <div class="results-container">
                     <div class="result-item">
                         <h2>ภาพที่อัปโหลด</h2>
-                        <img id="previewImg" src="#" alt="ตัวอย่างภาพ" style="display: none;">
+                        <img id="uploadedImg" src="#" alt="ภาพที่อัปโหลด" style="display: none;">
                     </div>
                     <div class="result-item">
                         <h2>ผลลัพธ์ Grad-CAM</h2>
-                        <img id="gradcamImg" src="#" alt="Grad-CAM ผลลัพธ์" style="display: none;">
+                        <img id="finalImg" src="#" alt="Grad-CAM ผลลัพธ์" style="display: none;">
+                        <div class="color-scale"></div>
                     </div>
                 </div>
             </div>
@@ -76,6 +79,7 @@
                     reader.onload = function(e) {
                         $('#previewImg').attr('src', e.target.result).show();
                         $('#fileName').text('ชื่อไฟล์: ' + file.name).show();
+                        $('#imagePreview').show();
                     }
                     reader.readAsDataURL(file);
                 }
@@ -95,10 +99,10 @@
                         $('#message').html('<div class="alert alert-info">กำลังวิเคราะห์ภาพ กรุณารอสักครู่...</div>');
                     },
                     success: function (response) {
-                        if (response && response.result && response.gradcam_img) {
+                        if (response && response.result && response.final_img) {
                             $('#resultText').text(response.result);
-                            $('#previewImg').attr('src', $('#previewImg').attr('src')).show();
-                            $('#gradcamImg').attr('src', 'data:image/png;base64,' + response.gradcam_img).show();
+                            $('#uploadedImg').attr('src', $('#previewImg').attr('src')).show();
+                            $('#finalImg').attr('src', 'data:image/png;base64,' + response.final_img).show();
                             $('#resultContainer').show();
                             $('#message').html('<div class="alert alert-success">วิเคราะห์ภาพเสร็จสิ้น</div>');
                         } else if (response.error) {
@@ -115,8 +119,7 @@
         });
     </script>
 </body>
-    <footer>
-        <p>&copy; 2024 LungXpert. สงวนลิขสิทธิ์.</p>
-    </footer>
+<footer>
+    <p>&copy; 2024 LungXpert. สงวนลิขสิทธิ์.</p>
+</footer>
 </html>
-{% endblock %}
