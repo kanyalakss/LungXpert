@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>โรงพยาบาลสุขภาพดี</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
 </head>
 <body>
     <header>
@@ -52,7 +54,7 @@
             <div id="resultContainer" class="result-container" style="display: none;">
                 <h2>ผลการวิเคราะห์</h2>
                 <p id="resultText"></p>
-                <div id="classProbabilities"></div>
+
                 <div class="results-container">
                     <div class="result-item">
                         <h2>ภาพที่อัปโหลด</h2>
@@ -66,7 +68,7 @@
                 </div>
 
                 <!-- เพิ่มปุ่มเซฟ -->
-                <button id="saveBtn" class="submit-btn">เซฟข้อมูล</button>
+                <button id="saveBtn" class="save-btn">เซฟข้อมูล</button>
             </div>
 
             <!-- เพิ่มฟอร์มกรอกข้อมูลผู้ป่วย -->
@@ -90,9 +92,6 @@
             </div>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
     <script>
         $(document).ready(function () {
             // ฟังก์ชันสำหรับการแสดงตัวอย่างภาพ
@@ -125,7 +124,15 @@
                     },
                     success: function (response) {
                         if (response && response.result && response.final_img) {
-                            $('#resultText').text(response.result);
+                            var resultText = response.result;
+         
+                            
+                            if (resultText === "ไม่สามารถจำแนกโรคได้") {
+                                $('#resultText').html('<span style="color: RED;">' + resultText + '</span>');
+                            } else {
+                                $('#resultText').html('<span style="color: ORANGE;">' + resultText + '</span>');
+                            }
+                            
                             $('#uploadedImg').attr('src', $('#previewImg').attr('src')).show();
                             $('#finalImg').attr('src', 'data:image/png;base64,' + response.final_img).show();
                             $('#resultContainer').show();
@@ -183,8 +190,9 @@
             });
         });
     </script>
+    
+    <footer>
+        <p>&copy; 2024 LungXpert. สงวนลิขสิทธิ์.</p>
+    </footer>
 </body>
-<footer>
-    <p>&copy; 2024 LungXpert. สงวนลิขสิทธิ์.</p>
-</footer>
 </html>
